@@ -2,6 +2,8 @@ package com.hss;
 
 import org.activiti.engine.*;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
@@ -185,5 +187,59 @@ public class ActivitiDemo {
         System.out.println("流程部署的id=" + deploy.getId());
         System.out.println("流程部署的名称" + deploy.getName());
 
+    }
+
+    /**
+     * 查询流程定义
+     * ACT_RE_PROCDEF
+     */
+    @Test
+    public void queryProcessDefinition(){
+//      1.获取流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//      2.获取 repositoryService
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+//      3.获取ProcessDifinitionQuery对象
+        ProcessDefinitionQuery definitionQuery = repositoryService.createProcessDefinitionQuery();
+//      4.查询当前所有的流程定义
+        List<ProcessDefinition> definitionList = definitionQuery.processDefinitionKey("myEvection")
+                .orderByProcessDefinitionVersion() //定义排序的字段
+                .desc() //定义排序规则
+                .list(); //返回所有结果
+//      5.输出信息
+        for(ProcessDefinition processDefinition : definitionList){
+            System.out.println("流程定义ID:" + processDefinition.getId());
+            System.out.println("流程定义名称：" + processDefinition.getName());
+            System.out.println("流程定义key：" + processDefinition.getKey());
+            System.out.println("流程定义版本:" + processDefinition.getVersion());
+
+            System.out.println("资源名:" + processDefinition.getResourceName());
+        }
+    }
+
+    /**
+     * 删除流程部署信息
+     * 操作表：
+     * ACT_RE_DEPLOYMENT
+     * ACT_RE_PROCDEF
+     * ACT_RU_EVENT_SUBSCR
+     * ACT_RU_IDENTITYLINK
+     * ACT_GE_BYTEARRAY
+     * 1.不会删除历史表信息
+     * 2.当前的流程如果没有完成，想要删除的话需要使用特殊方式。
+     *  原理就是 级联删除
+     */
+    @Test
+    public void deleteDeployMent(){
+//        1.获取流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//        2.获取 repositoryService
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+//        3.通过部署id来删除流程部署信息
+        String deploymentId = "2501";
+
+//        repositoryService.deleteDeployment(deploymentId);
+//        参数1：部署编号  参数2：级联删除（可以清理未完成的流程）
+        repositoryService.deleteDeployment(deploymentId,true);
     }
 }
