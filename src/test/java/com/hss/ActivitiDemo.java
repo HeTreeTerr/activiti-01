@@ -6,9 +6,10 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
+import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
-import java.io.InputStream;
+import java.io.*;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
@@ -241,5 +242,47 @@ public class ActivitiDemo {
 //        repositoryService.deleteDeployment(deploymentId);
 //        参数1：部署编号  参数2：级联删除（可以清理未完成的流程）
         repositoryService.deleteDeployment(deploymentId,true);
+    }
+
+    /**
+     * 下载资源文件
+     * 方案1： 使用Activiti提供的api，来下载资源文件，保存到文件目录
+     * 方案2： 自己写代码从数据库中下载文件下来，使用jdbc对blob类型，clob类型数据
+     *  读出来，保存到文件目录
+     * 解决Io操作，comm-io.jar
+     * 这里使用我们方案1，Activiti提供的api:RespositoryService
+     */
+    @Test
+    public void getDeployment() throws IOException {
+//        1.得到流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//        2.获取api,RepositoryService
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+//        3.获取查询对象 ProcessDefinitionQuery查询流程定义信息
+        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
+                .processDefinitionKey("myEvection")
+                .singleResult();
+//        4.通过流程定义信息，获取部署ID
+        String deploymentId = processDefinition.getDeploymentId();
+//        5.通过RepositoryService.传递部署id参数，读取资源信息(png和bpmn)
+        String pngName = processDefinition.getDiagramResourceName();
+        InputStream pngInput = repositoryService.getResourceAsStream(deploymentId, pngName);
+
+        String bpmnName = processDefinition.getResourceName();
+        InputStream bpmnInput = repositoryService.getResourceAsStream(deploymentId, bpmnName);
+//        6.构造OutPutStream流
+        File pngFile = new File("e:/evection01.png");
+        File bpmnFile = new File("e:/evection01.bpmn");
+
+        FileOutputStream pngOutPutStream = new FileOutputStream(pngFile);
+        FileOutputStream bpmnOutPutStream = new FileOutputStream(bpmnFile);
+//        7.输入流，输出流的转换
+        IOUtils.copy(pngInput,pngOutPutStream);
+        IOUtils.copy(bpmnInput,bpmnOutPutStream);
+//        8.关闭流
+        pngOutPutStream.close();
+        bpmnOutPutStream.close();
+        pngInput.close();
+        bpmnInput.close();
     }
 }
