@@ -1,6 +1,8 @@
 package com.hss;
 
 import org.activiti.engine.*;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricActivityInstanceQuery;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.repository.ProcessDefinitionQuery;
@@ -284,5 +286,31 @@ public class ActivitiDemo {
         bpmnOutPutStream.close();
         pngInput.close();
         bpmnInput.close();
+    }
+
+    /**
+     * 查看历史信息
+     */
+    @Test
+    public void findHistoryInfo(){
+//        获取流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//        获取HistoryService
+        HistoryService historyService = processEngine.getHistoryService();
+//        获取 actinst表的查询对象
+        HistoricActivityInstanceQuery instanceQuery = historyService.createHistoricActivityInstanceQuery();
+//        查询 actinst表
+        List<HistoricActivityInstance> activityInstances = instanceQuery
+                .processInstanceId("5001")
+                .orderByHistoricActivityInstanceStartTime().desc()
+                .list();
+//        输出
+        for(HistoricActivityInstance historicActivityInstance : activityInstances){
+            System.out.println(historicActivityInstance.getActivityId());
+            System.out.println(historicActivityInstance.getActivityName());
+            System.out.println(historicActivityInstance.getProcessDefinitionId());
+            System.out.println(historicActivityInstance.getProcessInstanceId());
+            System.out.println("------------------------------->");
+        }
     }
 }
