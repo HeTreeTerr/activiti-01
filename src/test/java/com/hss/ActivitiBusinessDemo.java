@@ -97,4 +97,37 @@ public class ActivitiBusinessDemo {
             System.out.println("流程定义：" + processDefinitionId + "，已挂起");
         }
     }
+
+    /**
+     * 挂起、激活单个流程实例
+     * 操作表：
+     * ACT_RU_TASK
+     * ACT_RU_EXECUTION
+     * ACT_RU_EXECUTION
+     */
+    @Test
+    public void suspendSingleProcessInstance(){
+//        1.获取流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//        2.获取RuntimeService
+        RuntimeService runtimeService = processEngine.getRuntimeService();
+//        3.通过RuntimeService获取流程实例对象
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery()
+                .processInstanceBusinessKey("1002", "myEvection")
+                .singleResult();
+//        4.得到当前流程实例的暂停状态，true-已暂停 false-激活
+        boolean suspended = processInstance.isSuspended();
+//        5.获取流程实例id
+        String instanceId = processInstance.getId();
+//        6.判断是否已暂停，如果已经暂停，就执行激活操作
+        if(suspended){
+            runtimeService.activateProcessInstanceById(instanceId);
+            System.out.println("流程实例id:" + instanceId + "已经激活");
+        }else{
+//        7.如果是激活状态，就执行暂停操作
+            runtimeService.suspendProcessInstanceById(instanceId);
+            System.out.println("流程实例id:" + instanceId + "已经挂起");
+        }
+
+    }
 }
