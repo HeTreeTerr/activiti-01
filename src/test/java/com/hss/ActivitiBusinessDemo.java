@@ -1,11 +1,9 @@
 package com.hss;
 
-import org.activiti.engine.ProcessEngine;
-import org.activiti.engine.ProcessEngines;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
+import org.activiti.engine.*;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.junit.Test;
 
 import java.util.List;
@@ -129,5 +127,33 @@ public class ActivitiBusinessDemo {
             System.out.println("流程实例id:" + instanceId + "已经挂起");
         }
 
+    }
+
+    /**
+     * 尝试完成挂起的流程实例任务
+     */
+    @Test
+    public void completTask(){
+//        1.获取流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//        2.获取taskService
+        TaskService taskService = processEngine.getTaskService();
+//        3.使用taskService获取任务，参数 任务实例的id,负责人
+        Task task = taskService.createTaskQuery()
+                .processDefinitionKey("myEvection")
+                .processInstanceBusinessKey("1002")
+                .taskAssignee("zhangsan")
+                .singleResult();
+
+        if(null != task){
+            System.out.println("流程实例id==" + task.getProcessDefinitionId());
+            System.out.println("流程任务id==" + task.getId());
+            System.out.println("负责人==" + task.getAssignee());
+            System.out.println("任务名称==" + task.getName());
+//            4.根据任务id完成任务
+            taskService.complete(task.getId());
+        }else{
+            System.out.println("没有查找到任务！");
+        }
     }
 }
