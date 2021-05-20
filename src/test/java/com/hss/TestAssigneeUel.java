@@ -25,8 +25,8 @@ public class TestAssigneeUel {
         //3.使用service进行流程的部署，定义一个流程的名字，把bpmn和png部署到数据库中
         Deployment deploy = repositoryService.createDeployment()
                 .name("出差申请单-uel")
-                .addClasspathResource("bpmn/evection-uel.bpmn")
-                .addClasspathResource("bpmn/evection-uel.png")
+                .addClasspathResource("bpmn/evection-uel/evection-uel.bpmn")
+                .addClasspathResource("bpmn/evection-uel/evection-uel.png")
                 .deploy();
         //4.输出部署信息
         System.out.println("流程部署id=" + deploy.getId());

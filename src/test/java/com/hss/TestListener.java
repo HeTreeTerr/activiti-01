@@ -20,8 +20,8 @@ public class TestListener {
         //3.使用service进行流程的部署，定义一个流程的名字，把bpmn和png部署到数据库中
         Deployment deploy = repositoryService.createDeployment()
                 .name("测试监听器")
-                .addClasspathResource("bpmn/demo-listener.bpmn")
-                .addClasspathResource("bpmn/demo-listener.png")
+                .addClasspathResource("bpmn/demo-listener/demo-listener.bpmn")
+                .addClasspathResource("bpmn/demo-listener/demo-listener.png")
                 .deploy();
         //4.输出部署信息
         System.out.println("流程部署id=" + deploy.getId());
