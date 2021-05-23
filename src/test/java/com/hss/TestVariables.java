@@ -2,8 +2,6 @@ package com.hss;
 
 import com.hss.pojo.Evection;
 import org.activiti.engine.*;
-import org.activiti.engine.history.HistoricActivityInstance;
-import org.activiti.engine.history.HistoricActivityInstanceQuery;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -14,6 +12,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 启动流程时设置变量
+ */
 public class TestVariables {
 
     /**
@@ -39,6 +40,8 @@ public class TestVariables {
 
     /**
      * 启动流程
+     * 使用uel表达式指定任务负责人
+     * 和出差天数
      */
     @Test
     public void testStartProcess(){
