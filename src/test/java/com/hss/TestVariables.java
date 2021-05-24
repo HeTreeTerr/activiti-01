@@ -52,6 +52,7 @@ public class TestVariables {
 
 //        指定出差基本信息
         Evection evection = new Evection();
+//        1005--2D  1006--3D
         evection.setNum(3D);
 
         Map<String, Object> map = new HashMap<>();

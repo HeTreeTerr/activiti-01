@@ -31,7 +31,7 @@ public class TestVariablesComplete {
         map.put("assignee2","sun_global");
         map.put("assignee3","li_global");
 
-//        3.启动流程实例
+//        3.启动流程实例 1007--2D 1008--5D
         ProcessInstance processInstance = runtimeService
                 .startProcessInstanceByKey("test-global", "1008", map);
 //        4.输出流程定义信息
