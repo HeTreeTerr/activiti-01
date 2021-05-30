@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 在执行流程实例中指定变量
  */
-public class TestVariablesExecution {
+public class TestGlobalVariablesExecution {
 
     /**
      * 启动流程实例

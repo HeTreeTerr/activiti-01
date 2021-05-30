@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * 通过当前任务设置参数
  */
-public class TestVariablesTask {
+public class TestGlobalVariablesTask {
 
     /**
      * 启动流程实例

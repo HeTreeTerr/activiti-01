@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * 启动流程时设置变量
  */
-public class TestVariables {
+public class TestGlobalVariables {
 
     /**
      * 部署流程

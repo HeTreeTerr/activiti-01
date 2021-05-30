@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * 完成任务时设置变量
  */
-public class TestVariablesComplete {
+public class TestGlobalVariablesComplete {
 
     /**
      * 启动流程实例
