@@ -34,7 +34,7 @@ public class TestGlobalVariablesExecution {
         map.put("assignee1","qian_global");
         map.put("assignee2","sun_global");
         map.put("assignee3","li_global");
-//        3.启动流程实例 10009--2D 1010--3D
+//        3.启动流程实例 1009--2D 1010--3D
         ProcessInstance processInstance = runtimeService
                 .startProcessInstanceByKey("test-global", "1010", map);
 
