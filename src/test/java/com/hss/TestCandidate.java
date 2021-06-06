@@ -128,6 +128,32 @@ public class TestCandidate {
     }
 
     /**
+     * 任务交接
+     */
+    @Test
+    public void testChangeAssigneeToGroupTask(){
+        //        1.获取流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//        2.获取taskService
+        TaskService taskService = processEngine.getTaskService();
+//        3.查询任务
+        String assignee = "wangwu";
+        String candidateUser = "lisi";
+        Task task = taskService.createTaskQuery()
+                .processDefinitionKey("evection-candidate")
+                .processInstanceBusinessKey("1011")
+                .taskAssignee(assignee)
+                .singleResult();
+        if(null != task){
+//            4.将任务交给其他候选人
+            taskService.setAssignee(task.getId(),candidateUser);
+            System.out.println(assignee + "交接任务给" + candidateUser + "成功！");
+        }else{
+            System.out.println("没有查询到相关信息！");
+        }
+    }
+
+    /**
      * 完成个人任务
      */
     @Test
