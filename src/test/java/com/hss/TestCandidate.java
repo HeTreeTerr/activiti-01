@@ -77,6 +77,57 @@ public class TestCandidate {
     }
 
     /**
+     * 候选人，拾取任务
+     */
+    @Test
+    public void claimTask(){
+//        1.获取流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//        2.获取
+        TaskService taskService = processEngine.getTaskService();
+//        3.查询任务
+        String candidateUser = "wangwu";
+        Task task = taskService.createTaskQuery()
+                .processDefinitionKey("evection-candidate")
+                .processInstanceBusinessKey("1011")
+                .taskCandidateUser(candidateUser)
+                .singleResult();
+
+        if(null != task){
+//            4.拾取任务
+            taskService.claim(task.getId(),candidateUser);
+            System.out.println(candidateUser + "拾取任务成功！");
+        }else{
+            System.out.println("没有查询到相关信息！");
+        }
+    }
+
+    /**
+     * 任务归还
+     */
+    @Test
+    public void testAssigneeToGroupTask(){
+//        1.获取流程引擎
+        ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+//        2.获取taskService
+        TaskService taskService = processEngine.getTaskService();
+//        3.查询任务
+        String assignee = "wangwu";
+        Task task = taskService.createTaskQuery()
+                .processDefinitionKey("evection-candidate")
+                .processInstanceBusinessKey("1011")
+                .taskAssignee(assignee)
+                .singleResult();
+        if(null != task){
+//            4.归还任务(本质是：将负责人设置为空)
+            taskService.setAssignee(task.getId(),null);
+            System.out.println(assignee + "归还任务成功！");
+        }else{
+            System.out.println("没有查询到相关信息！");
+        }
+    }
+
+    /**
      * 完成个人任务
      */
     @Test
