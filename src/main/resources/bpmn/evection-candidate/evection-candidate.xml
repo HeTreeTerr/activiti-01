@@ -13,7 +13,7 @@
       </extensionElements>
     </startEvent>
     <userTask activiti:assignee="zhangsan" activiti:exclusive="true" id="_4" name="提交出差请求"/>
-    <userTask activiti:assignee="lisi,wangwu" activiti:exclusive="true" id="_5" name="经理审批"/>
+    <userTask activiti:candidateUsers="lisi,wangwu" activiti:exclusive="true" id="_5" name="经理审批"/>
     <userTask activiti:assignee="jack" activiti:exclusive="true" id="_6" name="总经理审批"/>
     <userTask activiti:assignee="rose" activiti:exclusive="true" id="_7" name="财务审批"/>
     <endEvent id="_8" name="EndEvent"/>
