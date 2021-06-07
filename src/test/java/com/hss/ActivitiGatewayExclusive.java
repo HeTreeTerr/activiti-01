@@ -14,6 +14,7 @@ import java.util.Map;
  * 排它网关测试（存在多个分支，只能且必须执行一个分支）
  * 分支结果：
  * 都是false会抛异常
+ *   org.activiti.engine.ActivitiException: No outgoing sequence flow of the exclusive gateway '_14' could be selected for continuing the process
  * 都是true换选择编号较小的分支
  * 一个fals一个true会选择true分支
  */
@@ -50,6 +51,7 @@ public class ActivitiGatewayExclusive {
         RuntimeService runtimeService = processEngine.getRuntimeService();
 //        3.指定出差基本信息
         Evection evection = new Evection();
+//        1014--4D  1015--2D  1017--0.5D
         evection.setNum(4D);
 
         Map<String, Object> map = new HashMap<>();
