@@ -66,9 +66,9 @@ public class ActivitiGatewayExclusive {
                 .startProcessInstanceByKey("evection-exclusive", "1014", map);
 
 //        5.输出
-        System.out.println("" + processInstance.getId());
-        System.out.println("" + processInstance.getProcessDefinitionKey());
-        System.out.println("" + processInstance.getBusinessKey());
+        System.out.println("流程实例id=" + processInstance.getId());
+        System.out.println("流程定义key=" + processInstance.getProcessDefinitionKey());
+        System.out.println("流程实例商业key=" + processInstance.getBusinessKey());
     }
 
     /**
