@@ -48,10 +48,11 @@ public class ActivitiGatewayParallel {
 //        3.启动流程实例
         Map<String,Object> map = new HashMap<>();
         Evection evection = new Evection();
-        evection.setNum(4D);
+//        1018--4D  1019--2D
+        evection.setNum(2D);
         map.put("evection",evection);
         ProcessInstance processInstance = runtimeService
-                .startProcessInstanceByKey("evection-parallel", "1018", map);
+                .startProcessInstanceByKey("evection-parallel", "1019", map);
 //        4.输出
         System.out.println("流程实例id=" + processInstance.getId());
         System.out.println("流程实例key=" + processInstance.getProcessDefinitionKey());
@@ -68,10 +69,10 @@ public class ActivitiGatewayParallel {
 //        2.获取taskService
         TaskService taskService = processEngine.getTaskService();
 //        3.查询任务
-        String assignee = "Mr.li";
+        String assignee = "Mr.qian";
         Task task = taskService.createTaskQuery()
                 .processDefinitionKey("evection-parallel")
-                .processInstanceBusinessKey("1018")
+                .processInstanceBusinessKey("1019")
                 .taskAssignee(assignee)
                 .singleResult();
         if(null != task){
