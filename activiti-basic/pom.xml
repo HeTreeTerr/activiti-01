@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.hss</groupId>
-  <artifactId>activiti01</artifactId>
+  <artifactId>activiti-basic</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>activiti01 Maven Webapp</name>
+  <name>activiti-basic Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -117,7 +117,7 @@
   </dependencies>
 
   <build>
-    <finalName>activiti01</finalName>
+    <finalName>activiti-basic</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
