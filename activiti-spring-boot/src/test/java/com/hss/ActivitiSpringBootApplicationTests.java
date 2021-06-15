@@ -1,13 +1,13 @@
 package com.hss;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ActivitiSpringBootApplicationTests {
+public class ActivitiSpringBootApplicationTests {
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
     }
 
 }
