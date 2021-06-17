@@ -29,9 +29,6 @@ public class ActivitiSpringBootApplicationTests {
     private TaskRuntime taskRuntime;
 
     @Autowired
-    private RepositoryService repositoryService;
-
-    @Autowired
     private SecurityUtil securityUtil;
 
     @Test
@@ -54,23 +51,6 @@ public class ActivitiSpringBootApplicationTests {
         for(ProcessDefinition pd : processDefinitionPage.getContent()){
             log.info("流程定义:{}", pd);
         }
-    }
-
-    /**
-     * 测试流程部署
-     */
-    @Test
-    public void testDeploy(){
-//        1.部署流程
-        Deployment deploy = repositoryService.createDeployment()
-                .name("出差申请-demo")
-                .addClasspathResource("processes/activiti-demo.bpmn")
-                .addClasspathResource("processes/activiti-demo.png")
-                .deploy();
-//        2.输出
-        log.info("流程定义:id={}", deploy.getId());
-        log.info("流程定义:name={}", deploy.getName());
-        log.info("流程定义:key={}",  deploy.getKey());
     }
 
     /**

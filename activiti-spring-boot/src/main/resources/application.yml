@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/activiti?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+    url: jdbc:mysql://127.0.0.1:3306/activiti01?useUnicode=true&characterEncoding=utf8&nullCatalogMeansCurrent=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: root
   activiti:
@@ -12,7 +12,7 @@ spring:
     #2.true:activiti会对数据库中所有的表进行更新操作。如果表不存在，则自动创建
     #3.create_drop:在activiti启动时创建表，在关闭时删除表（必须手动关闭引擎，才能删除表）
     #4.drop_create:在activiti启动时删除原来的旧表，然后再创建新表（不需要手动关闭引擎）
-    database-schema-update: false
+    database-schema-update: true
     #activiti7默认不生成历史信息表，开启历史表
     db-history-used: true
     #记录历史等级，配置的历史级别有none,activity,audit,full
@@ -22,5 +22,5 @@ spring:
     #full:保存历史数据的最高级别，除了会保存audit级别的数据外，还会保存其他全部流程相关的细节数据，包括一些流程参数等。
     history-level: full
     #校验流程文件，默认校验resource下的process文件夹里的流程文件
-    check-process-definitions: false
+    check-process-definitions: true
 
