@@ -82,7 +82,7 @@ public class ActivitiSpringBootApplicationTests {
     @Test
     public void testTask(){
 //        1.模拟用户登录
-        securityUtil.logInAs("jack");
+        securityUtil.logInAs("rose");
 //        2.分页查询待办任务
         Page<Task> taskPage = taskRuntime.tasks(Pageable.of(0, 10));
 //        3.判断并输出
@@ -103,7 +103,7 @@ public class ActivitiSpringBootApplicationTests {
                         .withTaskId(task.getId())
                         .build()
                 );
-                log.info("");
+                log.info("任务办理成功！");
             }
         }else{
             log.info("没有查找到相关信息！");
