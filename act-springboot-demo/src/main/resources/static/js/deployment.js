@@ -17,10 +17,10 @@ var app = new Vue({
         },
         deploy:function (id) {
             axios.put('/flow/deployment/'+id)
-                .then(function(result){
-                    if(result ==1 ){
+                .then(resp => {
+                    if(resp.data ==1 ){
                         alert('部署成功！');
-                    }else if(result ==2){
+                    }else if(resp.data ==2){
                         alert('已经部署过！');
                     }else{
                         alert('部署失败！！')
