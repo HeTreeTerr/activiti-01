@@ -6,12 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class FlowService {
 
     @Autowired
+    private ActFlowCommService actFlowCommService;
+
+    @Autowired
     private FlowMapper flowMapper;
+
+    /**
+     * 查询用户任务
+     * @param userId
+     * @return
+     */
+    public List<Map<String, Object>> findUserTask(Long userId) {
+        List<Map<String, Object>> list = actFlowCommService.myTaskList(userId.toString());
+        return list;
+    }
 
     /**
      * 查询所有流程

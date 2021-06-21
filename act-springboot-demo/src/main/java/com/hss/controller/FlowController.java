@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 流程管理
@@ -50,5 +51,16 @@ public class FlowController {
         actFlowCommService.saveNewDeploy(flowInfo);
 //        4.修改部署状态
         return flowService.updateDeployState(id);
+    }
+
+    /**
+     * 查询用户任务
+     * @param request
+     * @return
+     */
+    @GetMapping("/flow/findUserTask")
+    public List<Map<String,Object>> findUserTask(HttpServletRequest request){
+        Long userId = (Long)request.getSession().getAttribute("userid");
+        return flowService.findUserTask(userId);
     }
 }
