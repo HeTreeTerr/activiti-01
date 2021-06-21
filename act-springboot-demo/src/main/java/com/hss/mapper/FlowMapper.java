@@ -3,9 +3,11 @@ package com.hss.mapper;
 import com.hss.entity.FlowInfo;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface FlowMapper {
 
     @Select("select * from tb_flow order by createtime desc")

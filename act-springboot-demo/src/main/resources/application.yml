@@ -28,3 +28,4 @@ logging:
   level:
     com.len.mapper: DEBUG
     org.activiti.engine.impl.persistence.entity: trace
+    com.hss.mapper: DEBUG
