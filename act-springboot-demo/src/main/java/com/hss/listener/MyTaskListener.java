@@ -17,7 +17,7 @@ public class MyTaskListener implements TaskListener {
         if(delegateTask.getEventName().equals("assignment")){
             FlowService flowService = (FlowService)SpringContextUtil.getBean("flowService");
             log.info("flowService={}",flowService);
-//            flowService.createTaskEvent(delegateTask);
+            flowService.createTaskEvent(delegateTask);
         }
     }
 }

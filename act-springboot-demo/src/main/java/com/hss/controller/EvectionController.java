@@ -64,7 +64,8 @@ public class EvectionController {
             String beanName = formKey + "Service";
 //            使用流程变量设置字符串（格式 ： Evection:Id 的形式）
 //            使用正在执行对象表中的一个字段BUSINESS_KEY(Activiti提供的一个字段)，让启动的流程（流程实例）关联业务
-            String bussinessKey = formKey+":" +id;
+            String prefix = formKey+":";
+            String bussinessKey = prefix +id;
             ProcessInstance processInstance = actFlowCommService.startProcess(formKey, beanName, bussinessKey, id);
 //            流程实例ID
             String processDefinitionId = processInstance.getProcessDefinitionId();
@@ -76,7 +77,7 @@ public class EvectionController {
                             map.get("processDefinitionId").toString().equals(processDefinitionId)){
                         log.info("processDefinitionId is {}",map.get("processDefinitionId").toString());
                         log.info("taskid is {}",map.get("taskid").toString());
-                        actFlowCommService.completeProcess("同意",map.get("taskid").toString(),userId.toString(),beanName,id);
+                        actFlowCommService.completeProcess("同意",map.get("taskid").toString(),userId.toString(),beanName,prefix);
                     }
                 }
             }

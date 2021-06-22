@@ -1,14 +1,19 @@
 package com.hss.service;
 
 import com.hss.entity.FlowInfo;
+import com.hss.entity.User;
 import com.hss.mapper.FlowMapper;
+import lombok.extern.slf4j.Slf4j;
+import org.activiti.engine.delegate.DelegateTask;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
+@Slf4j
 public class FlowService {
 
     @Autowired
@@ -16,6 +21,12 @@ public class FlowService {
 
     @Autowired
     private FlowMapper flowMapper;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private SiteMessageService siteMessageService;
 
     /**
      * 查询用户任务
@@ -51,5 +62,44 @@ public class FlowService {
      */
     public int updateDeployState(Long id){
         return flowMapper.updateFlowDeployState(id);
+    }
+
+    /**
+     * 查询任务详细信息
+     * @param userId
+     * @return
+     */
+    public List<Map<String, Object>> findTaskInfo(Long userId) {
+        List<Map<String, Object>> list = actFlowCommService.myTaskInfoList(userId.toString());
+        return list;
+    }
+
+    /**
+     * 完成任务
+     * @param userId
+     */
+    public void completeTask(String taskId,Long userId,String beanName,String prefix) {
+        actFlowCommService.completeProcess("同意",taskId,userId.toString(),beanName,prefix);
+    }
+
+    /**
+     * 任务创建事件
+     * @param delegateTask
+     */
+    public void createTaskEvent(DelegateTask delegateTask) {
+        log.info("delegateTask=={}",delegateTask);
+//        负责人
+        String assignee = delegateTask.getAssignee();
+//        获取当前登录用户
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.findOneUserByName(username);
+        String userId = user.getId().toString();
+//        任务id
+        String taskId = delegateTask.getId();
+        if(!assignee.equals(userId)){
+            int type =1;
+            siteMessageService.sendMsg(Long.valueOf(assignee),taskId,type,1);
+        }
+
     }
 }
