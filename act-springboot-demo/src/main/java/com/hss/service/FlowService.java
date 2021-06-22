@@ -23,7 +23,7 @@ public class FlowService {
      * @return
      */
     public List<Map<String, Object>> findUserTask(Long userId) {
-        List<Map<String, Object>> list = actFlowCommService.myTaskList(userId.toString());
+        List<Map<String, Object>> list = actFlowCommService.myTaskList(userId.toString(),null);
         return list;
     }
 

@@ -1,6 +1,6 @@
 package com.hss.listener;
 
-//import com.hss.service.FlowService;
+import com.hss.service.FlowService;
 import com.hss.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.delegate.DelegateTask;
@@ -14,10 +14,10 @@ public class MyTaskListener implements TaskListener {
     @Override
     public void notify(DelegateTask delegateTask) {
         log.info("eventName=={}",delegateTask.getEventName());
-        /*if(delegateTask.getEventName().equals("assignment")){
+        if(delegateTask.getEventName().equals("assignment")){
             FlowService flowService = (FlowService)SpringContextUtil.getBean("flowService");
             log.info("flowService={}",flowService);
-            flowService.createTaskEvent(delegateTask);
-        }*/
+//            flowService.createTaskEvent(delegateTask);
+        }
     }
 }
